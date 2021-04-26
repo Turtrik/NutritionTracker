@@ -1,39 +1,16 @@
 <!DOCTYPE html>
+
 <html>
 <head>
-    <title>JSSample</title>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="APIManager.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-
-<script type="text/javascript">
-    $(function() {
-        var params = {
-            // Request parameters
-            "query": "{string}",
-            "start": "0",
-            "count": "25",
-            "spell": "true",
-        };
-      
-        $.ajax({
-            url: "https://nutrition-api.esha.com/foods?" + $.param(params),
-            beforeSend: function(xhrObj){
-                // Request headers
-                xhrObj.setRequestHeader("Accept","application/json");
-                xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","{subscription key}");
-            },
-            type: "GET",
-            // Request body
-            data: "{body}",
-        })
-        .done(function(data) {
-            alert("success");
-        })
-        .fail(function() {
-            alert("error");
-        });
-    });
-</script>
+    <div>
+        <input class="form-control form-control-lg formcontrol-borderless" type="search" placeholder="Enter Food Item or Keyword"  size="50" id="foodSearch">
+        <button class="btn btn-lg btn-success" style="height:24px;width:75px;" type="submit" onclick="foodSearch()">Search</button>
+    </div>
+    <div id='searchs'></div>
+    
 </body>
 </html>
