@@ -24,25 +24,33 @@ function loadLists() {
                 output+= ((calorieLists[index1])[index2])['fields']['item_name'] + ', ';
             }
             output+= '<b>' + findTotalCalories((calorieLists[index1])).toString() + ' total cal' + '</b>' + '&emsp;';
-            output+= '<button class="btn btn-lg btn-success" style="height:24px;width:75px;" type="submit" onclick="removeItem(' + index1 + ')">Edit</button>' + '&emsp;';
+            output+= '<button class="btn btn-lg btn-success" style="height:24px;width:75px;" type="submit" onclick="editList(' + index1 + ')">View/Edit</button>' + '&emsp;';
             output+= '<button class="btn btn-lg btn-success" style="height:24px;width:75px;" type="submit" onclick="removeList(' + index1 + ')">Remove</button>';
-            output+= '</li>';
+            output+= '</li><p></p>';
         }
         output+= '</ul>';
         initialOutput.innerHTML = output;
     }
     else {
-        initialOutput.innerHTML = '<font size=\"+2\">It\'s your first time! Click the button below to create a new list. <br> <br></font>';
+        initialOutput.innerHTML = '<font size=\"+2\">You have no lists! Click the button below to create a new list. <br> <br></font>';
     }
     document.body.insertBefore(initialOutput, theButton);
 }
 
+function editList(i) {
+    sessionStorage.setItem('currentList', JSON.stringify(calorieLists[i]));
+    sessionStorage.setItem('currentIndex', JSON.stringify(i));
+    window.location.href = './testSite.html';
+}
+
 function removeList(i) {
-    calorieLists.splice()
+    calorieLists.splice(i, 1);
+    location.reload();
+    updateCalorieLists();
 }
 
 function updateCalorieLists() {
-    
+    sessionStorage.setItem('calorieLists', JSON.stringify(calorieLists));
 }
 
 function findTotalCalories(x) {

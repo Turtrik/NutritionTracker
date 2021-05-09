@@ -1,5 +1,5 @@
-var selected = [];
 let responses = [];
+let editMode = false;
 
 var calorieLists = sessionStorage.getItem('calorieLists');
 if (calorieLists == null) {
@@ -8,6 +8,20 @@ if (calorieLists == null) {
 }
 else {
     calorieLists = JSON.parse(calorieLists);
+}
+
+var selected = sessionStorage.getItem('currentList');
+if (selected == null) {
+    console.log('null!');
+    selected = [];
+}
+else {
+    console.log("not null...");
+    selected = JSON.parse(selected);
+    console.log(selected);
+    sessionStorage.removeItem('currentList');
+    displayList();
+    editMode = true;
 }
 
 function toSearch() {
@@ -112,6 +126,12 @@ function displayList() {
     var index;
     var foodList = document.createElement('div');
     foodList.setAttribute("id", "foodList");
+
+    if (selected.length > 0) {
+        if (document.getElementById("emptylist")!= null) {
+            (document.getElementById("emptylist")).remove();
+        }
+    }
     
     var output = 
         '<ul>';
@@ -131,14 +151,23 @@ function displayList() {
 }
 
 function saveList() {
-    if (selected.length == 0) {
-        return;
+    if (editMode == true) {
+        var index = JSON.parse(sessionStorage.getItem('currentIndex'));
+        //sessionStorage.removeItem('currentIndex');
+        if (selected.length > 0) {
+            calorieLists.splice(index, 1, selected);
+        }
+        else {
+            calorieLists.splice(index, 1);
+        }
     }
-    calorieLists.push(selected);
-    console.log("LENGTH WOOO ", selected.length);
-    selected = [];
-    console.log("number of lists: ", calorieLists.length);
-    displayList();
+    else {
+        if (selected.length == 0) {
+            return;
+        }
+        calorieLists.push(selected);
+        //selected = [];
+    }
     sessionStorage.setItem("calorieLists", JSON.stringify(calorieLists));
     window.location.href = './home.html';
 }
