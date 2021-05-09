@@ -168,6 +168,7 @@ function displayList() {
     foodList.innerHTML = output;
     document.body.appendChild(foodList);
     modalGoals = document.getElementById("goalsModal");
+    document.getElementById("saveList").addEventListener("click", saveList);
 }
 
 function setGoal() {
@@ -203,4 +204,4 @@ function saveList() {
     window.location.href = './home.html';
 }
 
-document.getElementById("saveList").addEventListener("click", saveList);
+//document.getElementById("saveList").addEventListener("click", saveList);
