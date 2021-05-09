@@ -145,7 +145,10 @@ function displayList() {
     }
 
     output += '<li>' + 'Total Calories: ' + findTotalCalories(selected).toString() + '</li>';
-    output += '</ul>';
+    output += '<button id = "saveList">' +
+                    'Save List' +
+                '</button>' + 
+            '</ul>';
     foodList.innerHTML = output;
     document.body.appendChild(foodList);
 }
