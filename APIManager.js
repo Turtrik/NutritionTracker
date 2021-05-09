@@ -97,6 +97,17 @@ function removeItem(i) {
     }
 }
 
+function findTotalCalories(x) {
+    let totalCalories = 0;
+
+    for (index = 0; index < x.length; ++index) {
+        totalCalories += (x[index])['fields']['nf_calories'];
+    }
+    totalCalories = totalCalories.toFixed(1);
+    console.log(totalCalories);
+    return totalCalories;
+}
+
 function displayList() {
     var index;
     var foodList = document.createElement('div');
@@ -113,15 +124,7 @@ function displayList() {
             + '</li>';
     }
 
-    var totalCalories = 0;
-
-    for (index = 0; index < selected.length; ++index) {
-        totalCalories += (selected[index])['fields']['nf_calories'];
-    }
-
-    totalCalories = totalCalories.toFixed(1);
-    console.log(totalCalories);
-    output += '<li>' + 'Total Calories: ' + totalCalories.toString() + '</li>';
+    output += '<li>' + 'Total Calories: ' + findTotalCalories(selected).toString() + '</li>';
     output += '</ul>';
     foodList.innerHTML = output;
     document.body.appendChild(foodList);
@@ -131,7 +134,7 @@ function saveList() {
     if (selected.length == 0) {
         return;
     }
-    calorieLists.push(responses);
+    calorieLists.push(selected);
     console.log("LENGTH WOOO ", selected.length);
     selected = [];
     console.log("number of lists: ", calorieLists.length);
