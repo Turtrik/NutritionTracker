@@ -140,17 +140,33 @@ function displayList() {
         output+= 
             '<li>' + (selected[index])['fields']['item_name'] + ', ' 
             + (selected[index])['fields']['nf_calories'] + ' kcal' + '&emsp;'
-            + '<button class="btn btn-lg btn-success" style="height:24px;width:75px;" type="submit" onclick="removeItem(' + index + ')">Remove</button>'
+            + '<button id="noPrint" onclick="removeItem(' + index + ')">Remove</button>'
             + '</li>';
     }
 
     output += '<li>' + 'Total Calories: ' + findTotalCalories(selected).toString() + '</li>';
-    output += '<button id = "saveList">' +
+    output += '</ul>' +
+                '<button id = "saveList">' +
                     'Save List' +
-                '</button>' + 
-            '</ul>';
+                '</button>' +
+                '<button id = "printList" onclick="window.print();">' +
+                    'Print List' +
+                '</button>';
     foodList.innerHTML = output;
     document.body.appendChild(foodList);
+}
+
+function printList(listName) {
+    // Get the area wanting to be printed and the whole page
+    var printableContents = document.getElementById(listName).innerHTML;
+    var tempContents = document.body.innerHTML;
+
+    // Remove all html besides the area being printed and print the page
+    document.body.innerHTML = printableContents;
+    window.print();
+
+    // Reinstate the previously removed contents
+    document.body.innerHTML = tempContents;
 }
 
 function saveList() {

@@ -3,3 +3,21 @@ ul {
     padding: 0; /* Remove padding */
     margin: 0; /* Remove margins */
   }
+
+  @media print {
+    #noPrint {
+      display: none;
+    }
+
+    #searchBar {
+      display: none;
+    }
+
+    #saveList {
+      display: none;
+    }
+
+    #printList {
+      display: none;
+    }
+  }
