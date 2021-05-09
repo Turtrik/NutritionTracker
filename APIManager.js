@@ -156,19 +156,6 @@ function displayList() {
     document.body.appendChild(foodList);
 }
 
-function printList(listName) {
-    // Get the area wanting to be printed and the whole page
-    var printableContents = document.getElementById(listName).innerHTML;
-    var tempContents = document.body.innerHTML;
-
-    // Remove all html besides the area being printed and print the page
-    document.body.innerHTML = printableContents;
-    window.print();
-
-    // Reinstate the previously removed contents
-    document.body.innerHTML = tempContents;
-}
-
 function saveList() {
     if (editMode == true) {
         var index = JSON.parse(sessionStorage.getItem('currentIndex'));
