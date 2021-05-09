@@ -163,7 +163,7 @@ function displayList() {
                     'Print List' +
                 '</button>' +
                 '<button id = "setGoal" onclick="modalGoals.style.display =\'block\';">' +
-                    'Print List' +
+                    'Set Goal' +
                 '</button>';
     foodList.innerHTML = output;
     document.body.appendChild(foodList);
