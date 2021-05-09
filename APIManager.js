@@ -1,6 +1,9 @@
 let responses = [];
 let editMode = false;
 
+let modalGoals;
+let goal;
+
 var calorieLists = sessionStorage.getItem('calorieLists');
 if (calorieLists == null) {
     calorieLists = [];
@@ -33,7 +36,7 @@ function foodSearch() {
     let term =$.trim($("#foodSearch").val());
     var temphtml;
     var output = 
-        '<div id="searchList" class="modal">' + 
+        '<div id="searchList">' + 
         '   <span class="close"&times;</span>';
     responses = [];
 
@@ -119,7 +122,11 @@ function findTotalCalories(x) {
     }
     totalCalories = totalCalories.toFixed(1);
     console.log(totalCalories);
-    return totalCalories;
+
+    if (goal >= 0) {
+        return totalCalories + "/" + goal + " (" + ((totalCalories/Number(goal)) * 100) + "%)";
+    } else {return totalCalories;}
+    
 }
 
 function displayList() {
@@ -144,18 +151,36 @@ function displayList() {
             + '</li>';
     }
 
-    output += '<li>' + 'Total Calories: ' + findTotalCalories(selected).toString() + '</li>';
+    output += '<li id="calories">' + 'Total Calories: ' + findTotalCalories(selected).toString() + '</li>';
+    if (goal >= 0) {
+        console.log(goal);
+    }
     output += '</ul>' +
                 '<button id = "saveList">' +
                     'Save List' +
                 '</button>' +
                 '<button id = "printList" onclick="window.print();">' +
                     'Print List' +
+                '</button>' +
+                '<button id = "setGoal" onclick="modalGoals.style.display =\'block\';">' +
+                    'Print List' +
                 '</button>';
     foodList.innerHTML = output;
     document.body.appendChild(foodList);
+    modalGoals = document.getElementById("goalsModal");
 }
 
+function setGoal() {
+    goal =$.trim($("#goalCalories").val());
+
+    if (Number(goal) < 0 || isNaN(Number(goal))) {
+        alert("Invalid Calorie amount");
+        return;
+    }
+    document.getElementById("calories").innerHTML = 'Total Calories: ' + findTotalCalories(selected).toString();
+
+    modalGoals.style.display = 'none';
+}
 function saveList() {
     if (editMode == true) {
         var index = JSON.parse(sessionStorage.getItem('currentIndex'));
