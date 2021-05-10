@@ -66,10 +66,14 @@ function findTotalCalories(x) {
 
 document.addEventListener("DOMContentLoaded", loadLists);
 
-
+function backtoHomePage(){
+window.location.href = './home.html';
+    console.log('back to home')
+}
 function toSearch() {
     window.location.href = './testSite.html';
     console.log('tosearch ran');
 }
 
 document.getElementById("goToSearch").addEventListener("click", toSearch);
+document.getElementById("goBackHome").addEventListener("click", backtoHomePage);
